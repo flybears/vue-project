@@ -1,7 +1,7 @@
 {
-  "name": "osc",
+  "name": "csc",
   "version": "1.0.0",
-  "description": "oceanwing osc",
+  "description": "oceanwing csc",
   "author": "flybear",
   "private": true,
   "scripts": {
