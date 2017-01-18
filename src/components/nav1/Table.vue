@@ -4,10 +4,10 @@
 		<el-col :span="24" class="toolbar">
 			<el-form :inline="true" :model="formInline" class="demo-form-inline">
 				<el-form-item>
-					<el-input v-model="formInline.user" placeholder="姓名"></el-input>
+					<el-input v-model="formInline.user" @keyup.native.13="handleSearch" placeholder="姓名"></el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button>查询</el-button>
+					<el-button @click="handleSearch">查询</el-button>
 				</el-form-item>
 				<el-form-item>
 					<el-button @click="handleAdd">新增</el-button>
@@ -100,6 +100,64 @@
 	import util from '../../common/util'
 	import NProgress from 'nprogress'
 
+	const tableData = [{
+		id:1000,
+		name: 'lanqy1',
+		sex: 1,
+		age: 20,
+		birth:'1996-03-02',
+		addr:'广东广州天河体育中心'
+	}, {
+		id:1001,
+		name: 'lanqy2',
+		sex: 1,
+		age: 20,
+		birth:'1996-03-02',
+		addr:'广东广州天河体育中心'
+	}, {
+		id:1002,
+		name: 'lanqy3',
+		sex: 0,
+		age: 20,
+		birth:'1996-03-02',
+		addr:'广东广州天河体育中心'
+	}, {
+		id:1003,
+		name: 'lanqy4',
+		sex: 1,
+		age: 20,
+		birth:'1996-03-02',
+		addr:'广东广州天河体育中心'
+	}, {
+		id:1004,
+		name: 'lanqy5',
+		sex: 1,
+		age: 20,
+		birth:'1996-03-02',
+		addr:'广东广州天河体育中心'
+	}, {
+		id:1005,
+		name: 'lanqy6',
+		sex: 1,
+		age: 20,
+		birth:'1996-03-02',
+		addr:'广东广州天河体育中心'
+	}, {
+		id:1006,
+		name: 'lanqy7',
+		sex: 1,
+		age: 20,
+		birth:'1996-03-02',
+		addr:'广东广州天河体育中心'
+	}, {
+		id:1007,
+		name: 'lanqy8',
+		sex: 1,
+		age: 20,
+		birth:'1996-03-02',
+		addr:'广东广州天河体育中心'
+	}];
+
   export default {
     data() {
       return {
@@ -130,63 +188,8 @@
 						{ required: true, message: '请输入姓名', trigger: 'blur' }
 					]
 				},
-				tableData: [{
-					id:1000,
-					name: 'lanqy1',
-					sex: 1,
-					age: 20,
-					birth:'1996-03-02',
-					addr:'广东广州天河体育中心'
-				}, {
-					id:1001,
-					name: 'lanqy2',
-					sex: 1,
-					age: 20,
-					birth:'1996-03-02',
-					addr:'广东广州天河体育中心'
-				}, {
-					id:1002,
-					name: 'lanqy3',
-					sex: 0,
-					age: 20,
-					birth:'1996-03-02',
-					addr:'广东广州天河体育中心'
-				}, {
-					id:1003,
-					name: 'lanqy4',
-					sex: 1,
-					age: 20,
-					birth:'1996-03-02',
-					addr:'广东广州天河体育中心'
-				}, {
-					id:1004,
-					name: 'lanqy5',
-					sex: 1,
-					age: 20,
-					birth:'1996-03-02',
-					addr:'广东广州天河体育中心'
-				}, {
-					id:1005,
-					name: 'lanqy6',
-					sex: 1,
-					age: 20,
-					birth:'1996-03-02',
-					addr:'广东广州天河体育中心'
-				}, {
-					id:1006,
-					name: 'lanqy7',
-					sex: 1,
-					age: 20,
-					birth:'1996-03-02',
-					addr:'广东广州天河体育中心'
-				}, {
-					id:1007,
-					name: 'lanqy8',
-					sex: 1,
-					age: 20,
-					birth:'1996-03-02',
-					addr:'广东广州天河体育中心'
-				}],
+				tableData: tableData,
+				allData: tableData,
 				listLoading:false
      		}
     },
@@ -194,6 +197,12 @@
 			//性别显示转换
 			formatSex:function(row,column){
 				return row.sex==1?'男':row.sex==0?'女':'未知';
+			},
+			handleSearch: function(){
+				const name = this.formInline.user;
+				this.tableData = [...this.allData].filter((item) => {
+					return item.name.indexOf(name) > -1;
+				})
 			},
 			//删除记录
 			handleDel:function(row){
